@@ -2,27 +2,13 @@
 
 namespace JUnitScribe\Writer;
 
-class File
+class File extends String
 {
-    /** @var \JunitScribe\Document */
-    protected $document;
-
     /** @var string */
     protected $outputFilename;
 
     /** @var resource */
     protected $outputHandle;
-
-    /**
-     * @param   \JunitScribe\Document   $document
-     * @return  $this
-     * @codeCoverageIgnore
-     */
-    public function setDocument($document)
-    {
-        $this->document = $document;
-        return $this;
-    }
 
     /**
      * @param   string  $filename
@@ -52,37 +38,9 @@ class File
             return false;
         }
 
-        return $this->writeDocument();
-    }
-
-    /**
-     * Writes the document to the opened output file.
-     *
-     * @return  bool
-     */
-    protected function writeDocument()
-    {
         return (bool) fwrite(
             $this->outputHandle,
-            sprintf(
-                "%s\n%s",
-                '<?xml version="1.0" encoding="utf-8"?>',
-                $this->formatTestsuites()
-            )
-        );
-    }
-
-    /**
-     * Returns formatted output for Testsuites.
-     *
-     * @return  string
-     */
-    protected function formatTestsuites()
-    {
-        return sprintf(
-            "%s\n%s",
-            '<testsuites>',
-            '</testsuites>'
+            $this->formatDocument()
         );
     }
 }

@@ -2,9 +2,11 @@
 
 namespace JUnitScribe;
 
+use JUnitScribe\Document\Testsuite as JUnitTestsuite;
 use JUnitScribe\Writer\File as FileWriter;
 
-class Document {
+class Document extends JUnitTestsuite
+{
     /**
      * Writes the current document to the given file.
      *
