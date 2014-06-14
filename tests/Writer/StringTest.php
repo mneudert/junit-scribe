@@ -52,7 +52,34 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
         $writer->setDocument($document);
 
-        $this->assertNotFalse(strpos($writer->formatDocument(), $suiteName));
-        $this->assertNotFalse(strpos($writer->formatDocument(), $caseName));
+        $output = $writer->formatDocument();
+
+        $this->assertNotFalse(strpos($output, $suiteName));
+        $this->assertNotFalse(strpos($output, $caseName));
+    }
+
+    public function testAttributeTests()
+    {
+        $writer   = new StringWriter();
+        $document = new JUnitDocument();
+
+        $document
+            ->addTestsuite()
+                ->addTestcase()->getParent()
+                ->addTestcase()->getParent()
+                ->addTestsuite()
+                    ->addTestcase()->getParent()
+                    ->getParent()
+                ->getParent()
+            ->addTestsuite()
+                ->addTestCase()->getParent();
+
+        $writer->setDocument($document);
+
+        $output = $writer->formatDocument();
+
+        $this->assertNotFalse(strpos($output, '4'));
+        $this->assertNotFalse(strpos($output, '3'));
+        $this->assertNotFalse(strpos($output, '1'));
     }
 }

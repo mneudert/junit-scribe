@@ -82,12 +82,13 @@ class String
      */
     public function formatTestcase($testcase)
     {
-        $indent = $this->formatLevelIndent($testcase);
+        $indent     = $this->formatLevelIndent($testcase);
+        $attributes = $this->formatAttributes($testcase);
 
         return sprintf(
             "%s<testcase%s>\n%s</testcase>",
             $indent,
-            $this->formatAttributes($testcase),
+            $attributes,
             $indent
         );
     }
@@ -100,14 +101,17 @@ class String
      */
     public function formatTestsuite($testsuite)
     {
-        $indent = $this->formatLevelIndent($testsuite);
+        $indent     = $this->formatLevelIndent($testsuite);
+        $attributes = $this->formatAttributes($testsuite);
+        $testcases  = $this->reduceTestcases($testsuite->getTestcases());
+        $testsuites = $this->reduceTestsuites($testsuite->getTestsuites());
 
         return sprintf(
             "%s<testsuite%s>\n%s%s%s</testsuite>",
             $indent,
-            $this->formatAttributes($testsuite),
-            $this->reduceTestcases($testsuite->getTestcases()),
-            $this->reduceTestsuites($testsuite->getTestsuites()),
+            $attributes,
+            $testcases,
+            $testsuites,
             $indent
         );
     }
@@ -119,9 +123,13 @@ class String
      */
     public function formatTestsuites()
     {
+        $attributes = $this->formatAttributes($this->document);
+        $testsuites = $this->reduceTestsuites($this->document->getTestsuites());
+
         return sprintf(
-            "<testsuites>\n%s</testsuites>",
-            $this->reduceTestsuites($this->document->getTestsuites())
+            "<testsuites%s>\n%s</testsuites>",
+            $attributes,
+            $testsuites
         );
     }
 

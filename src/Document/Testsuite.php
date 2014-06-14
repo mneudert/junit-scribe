@@ -37,6 +37,30 @@ class Testsuite extends Node
     }
 
     /**
+     * Returns node attributes including (lazily) calculated ones.
+     *
+     * @return  array
+     * @see     Node::getAttributes()
+     */
+    public function getAttributes()
+    {
+        $attributes = parent::getAttributes();
+        $tests      = count($this->cases);
+
+        if (count($this->suites)) {
+            foreach ($this->suites as $suite) {
+                $tests += $suite->getAttribute('tests');
+            }
+        }
+
+        if (0 < $tests) {
+            $attributes['tests'] = $tests;
+        }
+
+        return $attributes;
+    }
+
+    /**
      * Returns all testcases.
      *
      * @return  Testcase[]

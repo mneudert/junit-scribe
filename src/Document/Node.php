@@ -28,6 +28,22 @@ abstract class Node
     }
 
     /**
+     * @param   string  $name
+     * @return  mixed
+     * @codeCoverageIgnore
+     */
+    public function getAttribute($name)
+    {
+        $attributes = $this->getAttributes();
+
+        if (!isset($attributes[$name])) {
+            return null;
+        }
+
+        return $attributes[$name];
+    }
+
+    /**
      * @return  array
      * @codeCoverageIgnore
      */
