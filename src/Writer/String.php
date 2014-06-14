@@ -3,6 +3,7 @@
 namespace JUnitScribe\Writer;
 
 use JUnitScribe\Document as JUnitDocument;
+use JUnitScribe\Document\Node as JUnitNode;
 use JUnitScribe\Document\Testcase as JUnitTestcase;
 use JUnitScribe\Document\Testsuite as JUnitTestsuite;
 
@@ -23,6 +24,32 @@ class String
     }
 
     /**
+     * Returns formatted output for node attributes.
+     *
+     * @param   JUnitNode   $node
+     * @return  string
+     */
+    public function formatAttributes($node)
+    {
+        $attrOutput = join(
+            ' ',
+            array_map(
+                function($key, $value) {
+                    return sprintf('%s="%s"', $key, $value);
+                },
+                array_keys($node->getAttributes()),
+                $node->getAttributes()
+            )
+        );
+
+        if (strlen($attrOutput)) {
+            $attrOutput = ' ' . $attrOutput;
+        }
+
+        return $attrOutput;
+    }
+
+    /**
      * Returns document as formatted string.
      *
      * @returns string
@@ -39,12 +66,12 @@ class String
     /**
      * Returns an indentation string for the testsuites nesting level.
      *
-     * @param   JUnitTestsuite  $testsuite
+     * @param   JUnitNode   $node
      * @return  string
      */
-    protected function formatLevelIndent($testsuite)
+    public function formatLevelIndent($node)
     {
-        return str_repeat('  ', $testsuite->getLevel());
+        return str_repeat('  ', $node->getLevel());
     }
 
     /**
@@ -53,14 +80,15 @@ class String
      * @param   JUnitTestcase   $testcase
      * @return  string
      */
-    protected function formatTestcase($testcase)
+    public function formatTestcase($testcase)
     {
         $indent = $this->formatLevelIndent($testcase);
 
         return sprintf(
-            "%s\n%s",
-            $indent . '<testcase>',
-            $indent . '</testcase>'
+            "%s<testcase%s>\n%s</testcase>",
+            $indent,
+            $this->formatAttributes($testcase),
+            $indent
         );
     }
 
@@ -70,16 +98,17 @@ class String
      * @param   JUnitTestsuite  $testsuite
      * @return  string
      */
-    protected function formatTestsuite($testsuite)
+    public function formatTestsuite($testsuite)
     {
         $indent = $this->formatLevelIndent($testsuite);
 
         return sprintf(
-            "%s\n%s%s%s",
-            $indent . '<testsuite>',
+            "%s<testsuite%s>\n%s%s%s</testsuite>",
+            $indent,
+            $this->formatAttributes($testsuite),
             $this->reduceTestcases($testsuite->getTestcases()),
             $this->reduceTestsuites($testsuite->getTestsuites()),
-            $indent . '</testsuite>'
+            $indent
         );
     }
 
@@ -88,13 +117,11 @@ class String
      *
      * @return  string
      */
-    protected function formatTestsuites()
+    public function formatTestsuites()
     {
         return sprintf(
-            "%s\n%s%s",
-            '<testsuites>',
-            $this->reduceTestsuites($this->document->getTestsuites()),
-            '</testsuites>'
+            "<testsuites>\n%s</testsuites>",
+            $this->reduceTestsuites($this->document->getTestsuites())
         );
     }
 

@@ -4,6 +4,9 @@ namespace JUnitScribe\Document;
 
 abstract class Node
 {
+    /** @var array */
+    protected $attributes = array();
+
     /** @var int */
     protected $level = 0;
 
@@ -25,6 +28,15 @@ abstract class Node
     }
 
     /**
+     * @return  array
+     * @codeCoverageIgnore
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * @return  int
      * @codeCoverageIgnore
      */
@@ -40,5 +52,16 @@ abstract class Node
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * @param   string  $name
+     * @return  $this
+     * @codeCoverageIgnore
+     */
+    public function setName($name)
+    {
+        $this->attributes['name'] = $name;
+        return $this;
     }
 }

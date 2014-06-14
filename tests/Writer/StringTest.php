@@ -36,4 +36,23 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(7, explode("\n", $writer->formatDocument()));
     }
+
+    public function testAttributeName()
+    {
+        $writer    = new StringWriter();
+        $document  = new JUnitDocument();
+        $suiteName = uniqid();
+        $caseName  = uniqid();
+
+        $document
+            ->addTestsuite()
+                ->setName($suiteName)
+                ->addTestcase()
+                    ->setName($caseName);
+
+        $writer->setDocument($document);
+
+        $this->assertNotFalse(strpos($writer->formatDocument(), $suiteName));
+        $this->assertNotFalse(strpos($writer->formatDocument(), $caseName));
+    }
 }
