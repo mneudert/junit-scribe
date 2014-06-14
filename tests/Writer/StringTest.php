@@ -14,18 +14,26 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
         $document
             ->addTestsuite()
-            ->addTestsuite()
-            ->getParent()
-            ->addTestsuite();
+                ->addTestsuite()
+                    ->getParent()
+                ->addTestsuite();
 
         $writer->setDocument($document);
 
-        $lines = explode("\n", $writer->formatDocument());
+        $this->assertCount(9, explode("\n", $writer->formatDocument()));
+    }
 
-        $this->assertCount(9, $lines);
-        $this->assertEquals(
-            array(1 => 5, 2 => 2),
-            array_count_values(array_values(array_count_values($lines)))
-        );
+    public function testDocumentWithTestcase()
+    {
+        $writer   = new StringWriter();
+        $document = new JUnitDocument();
+
+        $document
+            ->addTestsuite()
+                ->addTestcase();
+
+        $writer->setDocument($document);
+
+        $this->assertCount(7, explode("\n", $writer->formatDocument()));
     }
 }

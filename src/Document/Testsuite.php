@@ -2,47 +2,25 @@
 
 namespace JUnitScribe\Document;
 
-class Testsuite
+class Testsuite extends Node
 {
-    /** @var int */
-    protected $level = 0;
-
-    /** @var Testsuite */
-    protected $parent;
+    /** @var Testcase[] */
+    protected $cases = array();
 
     /** @var Testsuite[] */
     protected $suites = array();
 
     /**
-     * Constructor.
+     * Adds a testcase.
      *
-     * @param   Testsuite   $parent     (optional) parent testsuite
+     * @return  Testcase
      */
-    public function __construct($parent = null)
+    public function addTestcase()
     {
-        $this->parent = $parent;
+        $case          = new Testcase($this);
+        $this->cases[] = $case;
 
-        if (null !== $parent) {
-            $this->level = 1 + $parent->getLevel();
-        }
-    }
-
-    /**
-     * @return  int
-     * @codeCoverageIgnore
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * @return  Testsuite
-     * @codeCoverageIgnore
-     */
-    public function getParent()
-    {
-        return $this->parent;
+        return $case;
     }
 
     /**
@@ -56,6 +34,16 @@ class Testsuite
         $this->suites[] = $suite;
 
         return $suite;
+    }
+
+    /**
+     * Returns all testcases.
+     *
+     * @return  Testcase[]
+     */
+    public function getTestcases()
+    {
+        return $this->cases;
     }
 
     /**

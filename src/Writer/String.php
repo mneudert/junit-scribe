@@ -3,6 +3,7 @@
 namespace JUnitScribe\Writer;
 
 use JUnitScribe\Document as JUnitDocument;
+use JUnitScribe\Document\Testcase as JUnitTestcase;
 use JUnitScribe\Document\Testsuite as JUnitTestsuite;
 
 class String
@@ -47,6 +48,42 @@ class String
     }
 
     /**
+     * Returns formatted output for a testcase.
+     *
+     * @param   JUnitTestcase   $testcase
+     * @return  string
+     */
+    protected function formatTestcase($testcase)
+    {
+        $indent = $this->formatLevelIndent($testcase);
+
+        return sprintf(
+            "%s\n%s",
+            $indent . '<testcase>',
+            $indent . '</testcase>'
+        );
+    }
+
+    /**
+     * Returns formatted output for a testsuite.
+     *
+     * @param   JUnitTestsuite  $testsuite
+     * @return  string
+     */
+    protected function formatTestsuite($testsuite)
+    {
+        $indent = $this->formatLevelIndent($testsuite);
+
+        return sprintf(
+            "%s\n%s%s%s",
+            $indent . '<testsuite>',
+            $this->reduceTestcases($testsuite->getTestcases()),
+            $this->reduceTestsuites($testsuite->getTestsuites()),
+            $indent . '</testsuite>'
+        );
+    }
+
+    /**
      * Returns formatted output for all testsuites.
      *
      * @return  string
@@ -62,20 +99,21 @@ class String
     }
 
     /**
-     * Returns formatted output for a testsuite.
+     * Reduction trigger for testcases.
      *
-     * @param   JUnitTestsuite  $testsuite
+     * @param   JunitTestcase[]     $testcases
      * @return  string
      */
-    protected function formatTestsuite($testsuite)
+    protected function reduceTestcases($testcases)
     {
-        $indent = $this->formatLevelIndent($testsuite);
+        if (!count($testcases)) {
+            return '';
+        }
 
-        return sprintf(
-            "%s\n%s%s",
-            $indent . '<testsuite>',
-            $this->reduceTestsuites($testsuite->getTestsuites()),
-            $indent . '</testsuite>'
+        return array_reduce(
+            $testcases,
+            array($this, 'reduceFormatTestcase'),
+            ''
         );
     }
 
@@ -99,6 +137,24 @@ class String
     }
 
     /**
+     * Reduction method to format a testcase.
+     *
+     * @param   string          $output
+     * @param   JunitTestcase   $testcase
+     * @return  string
+     */
+    protected function reduceFormatTestcase($output, $testcase)
+    {
+        $caseOutput = $this->formatTestcase($testcase);
+
+        if (strlen($caseOutput)) {
+            $caseOutput .= "\n";
+        }
+
+        return $output . $caseOutput;
+    }
+
+    /**
      * Reduction method to format a testsuite.
      *
      * @param   string          $output
@@ -107,12 +163,12 @@ class String
      */
     protected function reduceFormatTestsuite($output, $testsuite)
     {
-        $output .= $this->formatTestsuite($testsuite);
+        $suiteOutput = $this->formatTestsuite($testsuite);
 
-        if (strlen($output)) {
-            $output .= "\n";
+        if (strlen($suiteOutput)) {
+            $suiteOutput .= "\n";
         }
 
-        return $output;
+        return $output . $suiteOutput;
     }
 }
