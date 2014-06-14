@@ -22,4 +22,30 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($writer->write());
     }
+
+    public function testFileCreatedUponWrite()
+    {
+        $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
+        $writer   = new FileWriter();
+        $writer->setOutputFileName($tempname);
+        $writer->setDocument(new JUnitDocument());
+
+        $this->assertTrue($writer->write());
+        $this->assertTrue(file_exists($tempname));
+
+        unlink($tempname);
+    }
+
+    public function testDocumentWithoutTestsuites()
+    {
+        $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
+        $writer   = new FileWriter();
+        $writer->setOutputFileName($tempname);
+        $writer->setDocument(new JUnitDocument());
+
+        $this->assertTrue($writer->write());
+        $this->assertCount(3, file($tempname));
+
+        unlink($tempname);
+    }
 }

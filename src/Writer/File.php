@@ -10,6 +10,9 @@ class File
     /** @var string */
     protected $outputFilename;
 
+    /** @var resource */
+    protected $outputHandle;
+
     /**
      * @param   \JunitScribe\Document   $document
      * @return  $this
@@ -43,6 +46,43 @@ class File
             return false;
         }
 
-        return true;
+        $this->outputHandle = fopen($this->outputFilename, 'w');
+
+        if (!is_resource($this->outputHandle)) {
+            return false;
+        }
+
+        return $this->writeDocument();
+    }
+
+    /**
+     * Writes the document to the opened output file.
+     *
+     * @return  bool
+     */
+    protected function writeDocument()
+    {
+        return (bool) fwrite(
+            $this->outputHandle,
+            sprintf(
+                "%s\n%s",
+                '<?xml version="1.0" encoding="utf-8"?>',
+                $this->formatTestsuites()
+            )
+        );
+    }
+
+    /**
+     * Returns formatted output for Testsuites.
+     *
+     * @return  string
+     */
+    protected function formatTestsuites()
+    {
+        return sprintf(
+            "%s\n%s",
+            '<testsuites>',
+            '</testsuites>'
+        );
     }
 }
