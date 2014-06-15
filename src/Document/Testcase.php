@@ -7,7 +7,6 @@ class Testcase extends Node
     /**
      * @param   string  $class
      * @return  $this
-     * @codeCoverageIgnore
      */
     public function setClass($class)
     {

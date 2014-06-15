@@ -15,7 +15,6 @@ class String
     /**
      * @param   JUnitDocument   $document
      * @return  $this
-     * @codeCoverageIgnore
      */
     public function setDocument($document)
     {

@@ -30,7 +30,6 @@ abstract class Node
     /**
      * @param   string  $name
      * @return  mixed
-     * @codeCoverageIgnore
      */
     public function getAttribute($name)
     {
@@ -45,7 +44,6 @@ abstract class Node
 
     /**
      * @return  array
-     * @codeCoverageIgnore
      */
     public function getAttributes()
     {
@@ -54,7 +52,6 @@ abstract class Node
 
     /**
      * @return  int
-     * @codeCoverageIgnore
      */
     public function getLevel()
     {
@@ -63,7 +60,6 @@ abstract class Node
 
     /**
      * @return  Node
-     * @codeCoverageIgnore
      */
     public function getParent()
     {
@@ -73,7 +69,6 @@ abstract class Node
     /**
      * @param   string  $name
      * @return  $this
-     * @codeCoverageIgnore
      */
     public function setName($name)
     {

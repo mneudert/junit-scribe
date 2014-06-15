@@ -13,7 +13,6 @@ class File extends String
     /**
      * @param   string  $filename
      * @return  $this
-     * @codeCoverageIgnore
      */
     public function setOutputFilename($filename)
     {
