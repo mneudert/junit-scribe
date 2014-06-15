@@ -13,4 +13,14 @@ class Testcase extends Node
         $this->attributes['class'] = $class;
         return $this;
     }
+
+    /**
+     * @param   float|int   $time
+     * @return  $this
+     */
+    public function setTime($time)
+    {
+        $this->attributes['time'] = (float) $time;
+        return $this;
+    }
 }

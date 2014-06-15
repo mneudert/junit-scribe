@@ -98,4 +98,33 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertNotFalse(strpos($output, '3'));
         $this->assertNotFalse(strpos($output, '1'));
     }
+
+    public function testAttributeTime()
+    {
+        $writer   = new StringWriter();
+        $document = new JUnitDocument();
+
+        $document
+            ->addTestsuite()
+                ->addTestcase()
+                    ->setTime(5)
+                    ->getParent()
+                ->addTestcase()
+                    ->setTime(0.234)
+                    ->getParent()
+                ->getParent()
+            ->addTestsuite()
+                ->addTestcase()
+                    ->setTime(4.766);
+
+        $writer->setDocument($document);
+
+        $output = $writer->formatDocument();
+
+        $this->assertNotFalse(strpos($output,  '5.000'));
+        $this->assertNotFalse(strpos($output,  '0.234'));
+        $this->assertNotFalse(strpos($output,  '5.234'));
+        $this->assertNotFalse(strpos($output,  '4.766'));
+        $this->assertNotFalse(strpos($output, '10.000'));
+    }
 }

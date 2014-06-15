@@ -34,6 +34,10 @@ class String
             ' ',
             array_map(
                 function($key, $value) {
+                    if (is_float($value)) {
+                        $value = sprintf('%.3f', $value);
+                    }
+
                     return sprintf('%s="%s"', $key, $value);
                 },
                 array_keys($node->getAttributes()),

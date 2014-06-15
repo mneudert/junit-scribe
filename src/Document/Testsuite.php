@@ -46,15 +46,27 @@ class Testsuite extends Node
     {
         $attributes = parent::getAttributes();
         $tests      = count($this->cases);
+        $time       = 0;
+
+        if (count($this->cases)) {
+            foreach ($this->cases as $case) {
+                $time += (float) $case->getAttribute('time');
+            }
+        }
 
         if (count($this->suites)) {
             foreach ($this->suites as $suite) {
                 $tests += $suite->getAttribute('tests');
+                $time  += $suite->getAttribute('time');
             }
         }
 
         if (0 < $tests) {
             $attributes['tests'] = $tests;
+        }
+
+        if (0 < $time) {
+            $attributes['time'] = $time;
         }
 
         return $attributes;
