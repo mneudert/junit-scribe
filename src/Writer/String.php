@@ -5,6 +5,7 @@ namespace JUnitScribe\Writer;
 use JUnitScribe\Document as Document;
 use JUnitScribe\Document\CaseNode;
 use JUnitScribe\Document\Node;
+use JUnitScribe\Document\ResultNode;
 use JUnitScribe\Document\SuiteNode;
 
 class String
@@ -88,12 +89,39 @@ class String
     {
         $indent     = $this->formatLevelIndent($testcase);
         $attributes = $this->formatAttributes($testcase);
+        $errors     = $this->reduceTestresults($testcase->getErrors());
+        $failures   = $this->reduceTestresults($testcase->getFailures());
 
         return sprintf(
-            "%s<testcase%s>\n%s</testcase>",
+            "%s<testcase%s>\n%s%s%s</testcase>",
             $indent,
             $attributes,
+            $errors,
+            $failures,
             $indent
+        );
+    }
+
+    /**
+     * Returns formatted output for a testresult.
+     *
+     * @param   ResultNode  $testresult
+     * @return  string
+     */
+    public function formatTestresult($testresult)
+    {
+        $indent      = $this->formatLevelIndent($testresult);
+        $attributes  = $this->formatAttributes($testresult);
+        $type        = $testresult->getAttribute('type');
+        $messageBody = $testresult->getMessageBody();
+
+        return sprintf(
+            "%s<%s%s>%s</%s>",
+            $indent,
+            $type,
+            $attributes,
+            $messageBody,
+            $type
         );
     }
 
@@ -157,6 +185,25 @@ class String
     }
 
     /**
+     * Reduction trigger for testresults.
+     *
+     * @param   ResultNode[]    $testresults
+     * @return  string
+     */
+    protected function reduceTestresults($testresults)
+    {
+        if (!count($testresults)) {
+            return '';
+        }
+
+        return array_reduce(
+            $testresults,
+            array($this, 'reduceFormatTestresult'),
+            ''
+        );
+    }
+
+    /**
      * Reduction trigger for testsuites.
      *
      * @param   SuiteNode[]     $testsuites
@@ -191,6 +238,24 @@ class String
         }
 
         return $output . $caseOutput;
+    }
+
+    /**
+     * Reduction method to format a testresult.
+     *
+     * @param   string      $output
+     * @param   ResultNode  $testresult
+     * @return  string
+     */
+    protected function reduceFormatTestresult($output, $testresult)
+    {
+        $resultOutput = $this->formatTestresult($testresult);
+
+        if (strlen($resultOutput)) {
+            $resultOutput .= "\n";
+        }
+
+        return $output . $resultOutput;
     }
 
     /**

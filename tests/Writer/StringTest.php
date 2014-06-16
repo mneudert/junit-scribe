@@ -37,6 +37,38 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(7, explode("\n", $writer->formatDocument()));
     }
 
+    public function testDocumentWithResults()
+    {
+        $writer   = new StringWriter();
+        $document = new Document();
+
+        $document
+            ->addTestsuite()
+                ->addTestcase()
+                    ->addFailure()
+                        ->getParent()
+                    ->getParent()
+                ->addTestcase()
+                    ->addError()
+                        ->setMessage('error message attribute')
+                        ->setMessageBody('error message body')
+                        ->getParent()
+                    ->addFailure()
+                        ->setMessage('failure message attribute')
+                        ->setMessageBody('failure message body');
+
+        $writer->setDocument($document);
+
+        $output = $writer->formatDocument();
+
+        $this->assertNotFalse(strpos($output, 'error message attribute'));
+        $this->assertNotFalse(strpos($output, 'error message body'));
+        $this->assertNotFalse(strpos($output, 'errors="1"'));
+        $this->assertNotFalse(strpos($output, 'failure message attribute'));
+        $this->assertNotFalse(strpos($output, 'failure message body'));
+        $this->assertNotFalse(strpos($output, 'failures="2"'));
+    }
+
     public function testAttributeClass()
     {
         $writer   = new StringWriter();

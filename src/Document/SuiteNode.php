@@ -46,19 +46,33 @@ class SuiteNode extends Node
     {
         $attributes = parent::getAttributes();
         $tests      = count($this->cases);
+        $errors     = 0;
+        $failures   = 0;
         $time       = 0;
 
         if (count($this->cases)) {
             foreach ($this->cases as $case) {
-                $time += (float) $case->getAttribute('time');
+                $errors   += $case->getAttribute('errors');
+                $failures += $case->getAttribute('failures');
+                $time     += (float) $case->getAttribute('time');
             }
         }
 
         if (count($this->suites)) {
             foreach ($this->suites as $suite) {
-                $tests += $suite->getAttribute('tests');
-                $time  += $suite->getAttribute('time');
+                $errors   += $suite->getAttribute('errors');
+                $failures += $suite->getAttribute('failures');
+                $tests    += $suite->getAttribute('tests');
+                $time     += $suite->getAttribute('time');
             }
+        }
+
+        if (0 < $errors) {
+            $attributes['errors'] = $errors;
+        }
+
+        if (0 < $failures) {
+            $attributes['failures'] = $failures;
         }
 
         if (0 < $tests) {
