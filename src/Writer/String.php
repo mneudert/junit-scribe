@@ -9,6 +9,8 @@ use JUnitScribe\Document\Testsuite as JUnitTestsuite;
 
 class String
 {
+    const INDENTATION = '  ';
+
     /** @var JUnitDocument */
     protected $document;
 
@@ -60,8 +62,7 @@ class String
     public function formatDocument()
     {
         return sprintf(
-            "%s\n%s",
-            '<?xml version="1.0" encoding="utf-8"?>',
+            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s",
             $this->formatTestsuites()
         );
     }
@@ -74,7 +75,7 @@ class String
      */
     public function formatLevelIndent($node)
     {
-        return str_repeat('  ', $node->getLevel());
+        return str_repeat(self::INDENTATION, $node->getLevel());
     }
 
     /**
@@ -139,7 +140,7 @@ class String
     /**
      * Reduction trigger for testcases.
      *
-     * @param   JunitTestcase[]     $testcases
+     * @param   JUnitTestcase[]     $testcases
      * @return  string
      */
     protected function reduceTestcases($testcases)
@@ -178,7 +179,7 @@ class String
      * Reduction method to format a testcase.
      *
      * @param   string          $output
-     * @param   JunitTestcase   $testcase
+     * @param   JUnitTestcase   $testcase
      * @return  string
      */
     protected function reduceFormatTestcase($output, $testcase)

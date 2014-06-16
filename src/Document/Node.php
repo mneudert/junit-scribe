@@ -14,6 +14,13 @@ abstract class Node
     protected $parent;
 
     /**
+     * Abstract getParent method to force correct code-completion.
+     *
+     * @return Node
+     */
+    abstract function getParent();
+
+    /**
      * Constructor.
      *
      * @param   Node    $parent     (optional) parent node
@@ -56,14 +63,6 @@ abstract class Node
     public function getLevel()
     {
         return $this->level;
-    }
-
-    /**
-     * @return  Node
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 
     /**

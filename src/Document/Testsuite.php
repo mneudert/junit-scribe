@@ -73,6 +73,14 @@ class Testsuite extends Node
     }
 
     /**
+     * @return  Testsuite
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * Returns all testcases.
      *
      * @return  Testcase[]

@@ -5,6 +5,14 @@ namespace JUnitScribe\Document;
 class Testcase extends Node
 {
     /**
+     * @return  Testsuite
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * @param   string  $class
      * @return  $this
      */
