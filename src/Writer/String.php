@@ -2,20 +2,20 @@
 
 namespace JUnitScribe\Writer;
 
-use JUnitScribe\Document as JUnitDocument;
-use JUnitScribe\Document\Node as JUnitNode;
-use JUnitScribe\Document\Testcase as JUnitTestcase;
-use JUnitScribe\Document\Testsuite as JUnitTestsuite;
+use JUnitScribe\Document as Document;
+use JUnitScribe\Document\CaseNode;
+use JUnitScribe\Document\Node;
+use JUnitScribe\Document\SuiteNode;
 
 class String
 {
     const INDENTATION = '  ';
 
-    /** @var JUnitDocument */
+    /** @var Document */
     protected $document;
 
     /**
-     * @param   JUnitDocument   $document
+     * @param   Document    $document
      * @return  $this
      */
     public function setDocument($document)
@@ -27,7 +27,7 @@ class String
     /**
      * Returns formatted output for node attributes.
      *
-     * @param   JUnitNode   $node
+     * @param   Node    $node
      * @return  string
      */
     public function formatAttributes($node)
@@ -57,7 +57,7 @@ class String
     /**
      * Returns document as formatted string.
      *
-     * @returns string
+     * @return  string
      */
     public function formatDocument()
     {
@@ -70,7 +70,7 @@ class String
     /**
      * Returns an indentation string for the testsuites nesting level.
      *
-     * @param   JUnitNode   $node
+     * @param   Node    $node
      * @return  string
      */
     public function formatLevelIndent($node)
@@ -81,7 +81,7 @@ class String
     /**
      * Returns formatted output for a testcase.
      *
-     * @param   JUnitTestcase   $testcase
+     * @param   CaseNode    $testcase
      * @return  string
      */
     public function formatTestcase($testcase)
@@ -100,7 +100,7 @@ class String
     /**
      * Returns formatted output for a testsuite.
      *
-     * @param   JUnitTestsuite  $testsuite
+     * @param   SuiteNode   $testsuite
      * @return  string
      */
     public function formatTestsuite($testsuite)
@@ -140,7 +140,7 @@ class String
     /**
      * Reduction trigger for testcases.
      *
-     * @param   JUnitTestcase[]     $testcases
+     * @param   CaseNode[]  $testcases
      * @return  string
      */
     protected function reduceTestcases($testcases)
@@ -159,7 +159,7 @@ class String
     /**
      * Reduction trigger for testsuites.
      *
-     * @param   JUnitTestsuite[]    $testsuites
+     * @param   SuiteNode[]     $testsuites
      * @return  string
      */
     protected function reduceTestsuites($testsuites)
@@ -178,8 +178,8 @@ class String
     /**
      * Reduction method to format a testcase.
      *
-     * @param   string          $output
-     * @param   JUnitTestcase   $testcase
+     * @param   string      $output
+     * @param   CaseNode    $testcase
      * @return  string
      */
     protected function reduceFormatTestcase($output, $testcase)
@@ -196,8 +196,8 @@ class String
     /**
      * Reduction method to format a testsuite.
      *
-     * @param   string          $output
-     * @param   JUnitTestsuite  $testsuite
+     * @param   string      $output
+     * @param   SuiteNode   $testsuite
      * @return  string
      */
     protected function reduceFormatTestsuite($output, $testsuite)

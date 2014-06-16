@@ -2,13 +2,13 @@
 
 namespace JUnitScribeTest;
 
-use JUnitScribe\Document as JUnitDocument;
+use JUnitScribe\Document;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstantiation()
     {
-        $document = new JUnitDocument();
+        $document = new Document();
 
         $this->assertEquals('JUnitScribe\\Document', get_class($document));
     }

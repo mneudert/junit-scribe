@@ -2,7 +2,7 @@
 
 namespace JUnitScribeTest\Writer;
 
-use JUnitScribe\Document as JUnitDocument;
+use JUnitScribe\Document;
 use JUnitScribe\Writer\File as FileWriter;
 
 class FileTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +18,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testNeverSuccessfulWithoutOutputFilename()
     {
         $writer = new FileWriter();
-        $writer->setDocument(new JUnitDocument());
+        $writer->setDocument(new Document());
 
         $this->assertFalse($writer->write());
     }
@@ -28,7 +28,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
         $writer   = new FileWriter();
         $writer->setOutputFileName($tempname);
-        $writer->setDocument(new JUnitDocument());
+        $writer->setDocument(new Document());
 
         $this->assertTrue($writer->write());
         $this->assertTrue(file_exists($tempname));
@@ -41,7 +41,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
         $writer   = new FileWriter();
         $writer->setOutputFileName($tempname);
-        $writer->setDocument(new JUnitDocument());
+        $writer->setDocument(new Document());
 
         $this->assertTrue($writer->write());
         $this->assertCount(3, file($tempname));

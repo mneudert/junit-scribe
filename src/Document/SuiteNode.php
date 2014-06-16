@@ -2,22 +2,22 @@
 
 namespace JUnitScribe\Document;
 
-class Testsuite extends Node
+class SuiteNode extends Node
 {
-    /** @var Testcase[] */
+    /** @var CaseNode[] */
     protected $cases = array();
 
-    /** @var Testsuite[] */
+    /** @var SuiteNode[] */
     protected $suites = array();
 
     /**
      * Adds a testcase.
      *
-     * @return  Testcase
+     * @return  CaseNode
      */
     public function addTestcase()
     {
-        $case          = new Testcase($this);
+        $case          = new CaseNode($this);
         $this->cases[] = $case;
 
         return $case;
@@ -26,11 +26,11 @@ class Testsuite extends Node
     /**
      * Creates a nested testsuite.
      *
-     * @return  Testsuite
+     * @return  SuiteNode
      */
     public function addTestsuite()
     {
-        $suite          = new Testsuite($this);
+        $suite          = new SuiteNode($this);
         $this->suites[] = $suite;
 
         return $suite;
@@ -73,7 +73,7 @@ class Testsuite extends Node
     }
 
     /**
-     * @return  Testsuite
+     * @return  SuiteNode
      */
     public function getParent()
     {
@@ -83,7 +83,7 @@ class Testsuite extends Node
     /**
      * Returns all testcases.
      *
-     * @return  Testcase[]
+     * @return  CaseNode[]
      */
     public function getTestcases()
     {
@@ -93,7 +93,7 @@ class Testsuite extends Node
     /**
      * Returns all nested testsuites.
      *
-     * @return  Testsuite[]
+     * @return  SuiteNode[]
      */
     public function getTestsuites()
     {

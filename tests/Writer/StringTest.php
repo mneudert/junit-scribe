@@ -2,7 +2,7 @@
 
 namespace JUnitScribeTest\Writer;
 
-use JUnitScribe\Document as JUnitDocument;
+use JUnitScribe\Document;
 use JUnitScribe\Writer\String as StringWriter;
 
 class StringTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +10,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testDocumentWithNestedTestsuites()
     {
         $writer   = new StringWriter();
-        $document = new JUnitDocument();
+        $document = new Document();
 
         $document
             ->addTestsuite()
@@ -26,7 +26,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testDocumentWithTestcase()
     {
         $writer   = new StringWriter();
-        $document = new JUnitDocument();
+        $document = new Document();
 
         $document
             ->addTestsuite()
@@ -40,7 +40,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testAttributeClass()
     {
         $writer   = new StringWriter();
-        $document = new JUnitDocument();
+        $document = new Document();
         $class    = uniqid();
 
         $document
@@ -56,7 +56,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testAttributeName()
     {
         $writer    = new StringWriter();
-        $document  = new JUnitDocument();
+        $document  = new Document();
         $suiteName = uniqid();
         $caseName  = uniqid();
 
@@ -77,7 +77,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testAttributeTests()
     {
         $writer   = new StringWriter();
-        $document = new JUnitDocument();
+        $document = new Document();
 
         $document
             ->addTestsuite()
@@ -102,7 +102,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testAttributeTime()
     {
         $writer   = new StringWriter();
-        $document = new JUnitDocument();
+        $document = new Document();
 
         $document
             ->addTestsuite()

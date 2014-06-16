@@ -2,10 +2,9 @@
 
 namespace JUnitScribe;
 
-use JUnitScribe\Document\Testsuite as JUnitTestsuite;
-use JUnitScribe\Writer\File as FileWriter;
+use JUnitScribe\Document\SuiteNode;
 
-class Document extends JUnitTestsuite
+class Document extends SuiteNode
 {
     /** intentionally left blank */
 }

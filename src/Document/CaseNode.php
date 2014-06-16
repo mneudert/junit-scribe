@@ -2,10 +2,10 @@
 
 namespace JUnitScribe\Document;
 
-class Testcase extends Node
+class CaseNode extends Node
 {
     /**
-     * @return  Testsuite
+     * @return  SuiteNode
      */
     public function getParent()
     {
