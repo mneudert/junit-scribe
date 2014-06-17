@@ -26,6 +26,22 @@ class String
     }
 
     /**
+     * Returns formatted output for a node attribute.
+     *
+     * @param   string  $key
+     * @param   mixed   $value
+     * @return  string
+     */
+    public function formatAttribute($key, $value)
+    {
+        if (is_float($value)) {
+            $value = sprintf('%.3f', $value);
+        }
+
+        return sprintf('%s="%s"', $key, $value);
+    }
+
+    /**
      * Returns formatted output for node attributes.
      *
      * @param   Node    $node
@@ -36,13 +52,7 @@ class String
         $attrOutput = join(
             ' ',
             array_map(
-                function($key, $value) {
-                    if (is_float($value)) {
-                        $value = sprintf('%.3f', $value);
-                    }
-
-                    return sprintf('%s="%s"', $key, $value);
-                },
+                array($this, 'formatAttribute'),
                 array_keys($node->getAttributes()),
                 $node->getAttributes()
             )
