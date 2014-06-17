@@ -80,6 +80,16 @@ class CaseNode extends Node
     }
 
     /**
+     * @param   int     $assertions
+     * @return  $this
+     */
+    public function setAssertions($assertions)
+    {
+        $this->attributes['assertions'] = (int) $assertions;
+        return $this;
+    }
+
+    /**
      * @param   string  $class
      * @return  $this
      */

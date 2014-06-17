@@ -69,6 +69,21 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertNotFalse(strpos($output, 'failures="2"'));
     }
 
+    public function testAttributeAssertions()
+    {
+        $writer   = new StringWriter();
+        $document = new Document();
+
+        $document
+            ->addTestsuite()
+                ->addTestcase()
+                    ->setAssertions(27);
+
+        $writer->setDocument($document);
+
+        $this->assertNotFalse(strpos($writer->formatDocument(), '27'));
+    }
+
     public function testAttributeClass()
     {
         $writer   = new StringWriter();
