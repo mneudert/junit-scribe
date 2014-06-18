@@ -4,8 +4,9 @@ namespace JUnitScribeTest\Writer;
 
 use JUnitScribe\Document;
 use JUnitScribe\Writer\File as FileWriter;
+use JUnitScribeTest\Testcase;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     public function testNeverSuccesfulWithoutDocument()
     {
@@ -28,7 +29,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
         $writer   = new FileWriter();
         $writer->setOutputFileName($tempname);
-        $writer->setDocument(new Document());
+        $writer->setDocument($this->getFixtureDocument());
 
         $this->assertTrue($writer->write());
         $this->assertTrue(file_exists($tempname));
@@ -41,10 +42,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
         $writer   = new FileWriter();
         $writer->setOutputFileName($tempname);
-        $writer->setDocument(new Document());
+        $writer->setDocument($this->getFixtureDocument());
 
         $this->assertTrue($writer->write());
-        $this->assertCount(3, file($tempname));
+        $this->assertEquals($this->getFixtureOutput(), join('', file($tempname)));
 
         unlink($tempname);
     }
