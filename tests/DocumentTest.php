@@ -4,11 +4,11 @@ namespace JUnitScribeTest;
 
 use JUnitScribe\Document;
 
-class DocumentTest extends \PHPUnit_Framework_TestCase
+class DocumentTest extends Testcase
 {
     public function testInstantiation()
     {
-        $document = new Document();
+        $document = $this->getFixtureDocument();
 
         $this->assertEquals('JUnitScribe\\Document', get_class($document));
     }
