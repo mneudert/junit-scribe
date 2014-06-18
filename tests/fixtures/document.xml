@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<testsuites tests="4">
-  <testsuite tests="3">
-    <testcase>
+<testsuites errors="1" failures="2" tests="5" time="4.000">
+  <testsuite name="JUnitScribe.Suite" tests="3" time="0.223">
+    <testcase name="JUnitScribe.Test" assertions="0">
     </testcase>
-    <testcase>
+    <testcase class="JUnitScribe.Test.Class" assertions="2" time="0.223">
     </testcase>
     <testsuite tests="1">
-      <testcase>
+      <testcase assertions="5">
       </testcase>
     </testsuite>
   </testsuite>
-  <testsuite tests="1">
-    <testcase>
+  <testsuite errors="1" failures="2" tests="2" time="3.777">
+    <testcase assertions="17" time="2.443" errors="1" failures="1">
+      <error message="error message attribute" type="error">error message body</error>
+      <failure message="failure message attribute" type="failure">failure message body</failure>
+    </testcase>
+    <testcase assertions="13" time="1.334" failures="1">
+      <failure message="secondary failure attribute" type="failure">secondary failure body</failure>
     </testcase>
   </testsuite>
 </testsuites>
