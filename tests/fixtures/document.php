@@ -16,6 +16,7 @@ $document
             ->setTime(0.223)
             ->getParent()
         ->addSuite()
+            ->setName('JunitScribe.NestedSuite')
             ->addCase()
                 ->setAssertions(5)
                 ->getParent()

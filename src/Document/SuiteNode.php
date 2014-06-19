@@ -37,6 +37,31 @@ class SuiteNode extends Node
     }
 
     /**
+     * Finds the first test suite having the given name.
+     *
+     * @param   string  $name
+     * @return  SuiteNode
+     */
+    public function findSuiteByName($name)
+    {
+        $suite = $this->getSuiteByName($name);
+
+        if (null !== $suite) {
+            return $suite;
+        }
+
+        foreach ($this->suites as $nested) {
+            $suite = $nested->getSuiteByName($name);
+
+            if (null !== $suite) {
+                break;
+            }
+        }
+
+        return $suite;
+    }
+
+    /**
      * Returns node attributes including (lazily) calculated ones.
      *
      * @return  array

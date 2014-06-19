@@ -6,6 +6,14 @@ use JUnitScribeTest\Testcase;
 
 class SuiteNodeTest extends Testcase
 {
+    public function testFindSuiteByName()
+    {
+        $document = $this->getFixtureDocument();
+
+        $this->assertNotNull($document->findSuiteByName('JunitScribe.NestedSuite'));
+        $this->assertNull($document->findSuiteByName('no one wants to find a test suite'));
+    }
+
     public function testGetSuiteByName()
     {
         $document = $this->getFixtureDocument();

@@ -5,7 +5,7 @@
     </testcase>
     <testcase class="JUnitScribe.Test.Class" assertions="2" time="0.223">
     </testcase>
-    <testsuite tests="1">
+    <testsuite name="JunitScribe.NestedSuite" tests="1">
       <testcase assertions="5">
       </testcase>
     </testsuite>
