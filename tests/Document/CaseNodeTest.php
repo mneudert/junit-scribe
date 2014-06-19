@@ -10,7 +10,8 @@ class CaseNodeTest extends Testcase
     {
         /** @var \JUnitScribe\Document\SuiteNode $suite */
         $document = $this->getFixtureDocument();
-        $suite    = $document->getSuites()[0];
+        $suites   = $document->getSuites();
+        $suite    = $suites[0];
 
         $this->assertNotNull($suite->getCaseByName('JUnitScribe.Test'));
         $this->assertNull($suite->getCaseByName('no one wants to find a test case'));
