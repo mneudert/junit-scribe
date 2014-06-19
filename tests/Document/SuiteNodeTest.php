@@ -6,11 +6,11 @@ use JUnitScribeTest\Testcase;
 
 class SuiteNodeTest extends Testcase
 {
-    public function testGetTestsuiteByName()
+    public function testGetSuiteByName()
     {
         $document = $this->getFixtureDocument();
 
-        $this->assertNotNull($document->getTestsuiteByName('JUnitScribe.Suite'));
-        $this->assertNull($document->getTestsuiteByName('no one wants to find a testsuite'));
+        $this->assertNotNull($document->getSuiteByName('JUnitScribe.Suite'));
+        $this->assertNull($document->getSuiteByName('no one wants to find a test suite'));
     }
 }

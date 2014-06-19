@@ -37,7 +37,7 @@ class FileTest extends TestCase
         unlink($tempname);
     }
 
-    public function testDocumentWithoutTestsuites()
+    public function testDocumentWithoutSuites()
     {
         $tempname = tempnam(sys_get_temp_dir(), 'junit-scribe-');
         $writer   = new FileWriter();

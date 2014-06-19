@@ -74,12 +74,12 @@ class String
     {
         return sprintf(
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s",
-            $this->formatTestsuites()
+            $this->formatSuites()
         );
     }
 
     /**
-     * Returns an indentation string for the testsuites nesting level.
+     * Returns an indentation string for the test suites nesting level.
      *
      * @param   Node    $node
      * @return  string
@@ -90,17 +90,17 @@ class String
     }
 
     /**
-     * Returns formatted output for a testcase.
+     * Returns formatted output for a test case.
      *
-     * @param   CaseNode    $testcase
+     * @param   CaseNode    $case
      * @return  string
      */
-    public function formatTestcase($testcase)
+    public function formatCase($case)
     {
-        $indent     = $this->formatLevelIndent($testcase);
-        $attributes = $this->formatAttributes($testcase);
-        $errors     = $this->reduceTestresults($testcase->getErrors());
-        $failures   = $this->reduceTestresults($testcase->getFailures());
+        $indent     = $this->formatLevelIndent($case);
+        $attributes = $this->formatAttributes($case);
+        $errors     = $this->reduceResults($case->getErrors());
+        $failures   = $this->reduceResults($case->getFailures());
 
         return sprintf(
             "%s<testcase%s>\n%s%s%s</testcase>",
@@ -113,17 +113,17 @@ class String
     }
 
     /**
-     * Returns formatted output for a testresult.
+     * Returns formatted output for a test result.
      *
-     * @param   ResultNode  $testresult
+     * @param   ResultNode  $result
      * @return  string
      */
-    public function formatTestresult($testresult)
+    public function formatResult($result)
     {
-        $indent      = $this->formatLevelIndent($testresult);
-        $attributes  = $this->formatAttributes($testresult);
-        $type        = $testresult->getAttribute('type');
-        $messageBody = $testresult->getMessageBody();
+        $indent      = $this->formatLevelIndent($result);
+        $attributes  = $this->formatAttributes($result);
+        $type        = $result->getAttribute('type');
+        $messageBody = $result->getMessageBody();
 
         return sprintf(
             "%s<%s%s>%s</%s>",
@@ -136,112 +136,112 @@ class String
     }
 
     /**
-     * Returns formatted output for a testsuite.
+     * Returns formatted output for a test suite.
      *
-     * @param   SuiteNode   $testsuite
+     * @param   SuiteNode   $suite
      * @return  string
      */
-    public function formatTestsuite($testsuite)
+    public function formatSuite($suite)
     {
-        $indent     = $this->formatLevelIndent($testsuite);
-        $attributes = $this->formatAttributes($testsuite);
-        $testcases  = $this->reduceTestcases($testsuite->getTestcases());
-        $testsuites = $this->reduceTestsuites($testsuite->getTestsuites());
+        $indent     = $this->formatLevelIndent($suite);
+        $attributes = $this->formatAttributes($suite);
+        $cases      = $this->reduceCases($suite->getCases());
+        $suites     = $this->reduceSuites($suite->getSuites());
 
         return sprintf(
             "%s<testsuite%s>\n%s%s%s</testsuite>",
             $indent,
             $attributes,
-            $testcases,
-            $testsuites,
+            $cases,
+            $suites,
             $indent
         );
     }
 
     /**
-     * Returns formatted output for all testsuites.
+     * Returns formatted output for all test suites.
      *
      * @return  string
      */
-    public function formatTestsuites()
+    public function formatSuites()
     {
         $attributes = $this->formatAttributes($this->document);
-        $testsuites = $this->reduceTestsuites($this->document->getTestsuites());
+        $suites     = $this->reduceSuites($this->document->getSuites());
 
         return sprintf(
             "<testsuites%s>\n%s</testsuites>",
             $attributes,
-            $testsuites
+            $suites
         );
     }
 
     /**
-     * Reduction trigger for testcases.
+     * Reduction trigger for test cases.
      *
-     * @param   CaseNode[]  $testcases
+     * @param   CaseNode[]  $cases
      * @return  string
      */
-    protected function reduceTestcases($testcases)
+    protected function reduceCases($cases)
     {
-        if (!count($testcases)) {
+        if (!count($cases)) {
             return '';
         }
 
         return array_reduce(
-            $testcases,
-            array($this, 'reduceFormatTestcase'),
+            $cases,
+            array($this, 'reduceFormatCase'),
             ''
         );
     }
 
     /**
-     * Reduction trigger for testresults.
+     * Reduction trigger for test results.
      *
-     * @param   ResultNode[]    $testresults
+     * @param   ResultNode[]    $results
      * @return  string
      */
-    protected function reduceTestresults($testresults)
+    protected function reduceResults($results)
     {
-        if (!count($testresults)) {
+        if (!count($results)) {
             return '';
         }
 
         return array_reduce(
-            $testresults,
-            array($this, 'reduceFormatTestresult'),
+            $results,
+            array($this, 'reduceFormatResult'),
             ''
         );
     }
 
     /**
-     * Reduction trigger for testsuites.
+     * Reduction trigger for test suites.
      *
-     * @param   SuiteNode[]     $testsuites
+     * @param   SuiteNode[]     $suites
      * @return  string
      */
-    protected function reduceTestsuites($testsuites)
+    protected function reduceSuites($suites)
     {
-        if (!count($testsuites)) {
+        if (!count($suites)) {
             return '';
         }
 
         return array_reduce(
-            $testsuites,
-            array($this, 'reduceFormatTestsuite'),
+            $suites,
+            array($this, 'reduceFormatSuite'),
             ''
         );
     }
 
     /**
-     * Reduction method to format a testcase.
+     * Reduction method to format a test case.
      *
      * @param   string      $output
-     * @param   CaseNode    $testcase
+     * @param   CaseNode    $case
      * @return  string
      */
-    protected function reduceFormatTestcase($output, $testcase)
+    protected function reduceFormatCase($output, $case)
     {
-        $caseOutput = $this->formatTestcase($testcase);
+        $caseOutput = $this->formatCase($case);
 
         if (strlen($caseOutput)) {
             $caseOutput .= "\n";
@@ -251,15 +251,15 @@ class String
     }
 
     /**
-     * Reduction method to format a testresult.
+     * Reduction method to format a test result.
      *
      * @param   string      $output
-     * @param   ResultNode  $testresult
+     * @param   ResultNode  $result
      * @return  string
      */
-    protected function reduceFormatTestresult($output, $testresult)
+    protected function reduceFormatResult($output, $result)
     {
-        $resultOutput = $this->formatTestresult($testresult);
+        $resultOutput = $this->formatResult($result);
 
         if (strlen($resultOutput)) {
             $resultOutput .= "\n";
@@ -269,15 +269,15 @@ class String
     }
 
     /**
-     * Reduction method to format a testsuite.
+     * Reduction method to format a test suite.
      *
      * @param   string      $output
-     * @param   SuiteNode   $testsuite
+     * @param   SuiteNode   $suite
      * @return  string
      */
-    protected function reduceFormatTestsuite($output, $testsuite)
+    protected function reduceFormatSuite($output, $suite)
     {
-        $suiteOutput = $this->formatTestsuite($testsuite);
+        $suiteOutput = $this->formatSuite($suite);
 
         if (strlen($suiteOutput)) {
             $suiteOutput .= "\n";

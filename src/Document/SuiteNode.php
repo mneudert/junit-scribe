@@ -11,11 +11,11 @@ class SuiteNode extends Node
     protected $suites = array();
 
     /**
-     * Adds a testcase.
+     * Adds a test case.
      *
      * @return  CaseNode
      */
-    public function addTestcase()
+    public function addCase()
     {
         $case          = new CaseNode($this);
         $this->cases[] = $case;
@@ -24,11 +24,11 @@ class SuiteNode extends Node
     }
 
     /**
-     * Creates a nested testsuite.
+     * Creates a nested test suite.
      *
      * @return  SuiteNode
      */
-    public function addTestsuite()
+    public function addSuite()
     {
         $suite          = new SuiteNode($this);
         $this->suites[] = $suite;
@@ -95,22 +95,22 @@ class SuiteNode extends Node
     }
 
     /**
-     * Returns all testcases.
+     * Returns all test cases.
      *
      * @return  CaseNode[]
      */
-    public function getTestcases()
+    public function getCases()
     {
         return $this->cases;
     }
 
     /**
-     * Returns a nested testcase if given name matches.
+     * Returns a nested test case if given name matches.
      *
      * @param   string  $name
      * @return  CaseNode
      */
-    public function getTestcaseByName($name)
+    public function getCaseByName($name)
     {
         foreach ($this->cases as $case) {
             if ($name === $case->getAttribute('name')) {
@@ -122,22 +122,22 @@ class SuiteNode extends Node
     }
 
     /**
-     * Returns all nested testsuites.
+     * Returns all nested test suites.
      *
      * @return  SuiteNode[]
      */
-    public function getTestsuites()
+    public function getSuites()
     {
         return $this->suites;
     }
 
     /**
-     * Returns a nested testsuite if given name matches.
+     * Returns a nested test suite if given name matches.
      *
      * @param   string  $name
      * @return  SuiteNode
      */
-    public function getTestsuiteByName($name)
+    public function getSuiteByName($name)
     {
         foreach ($this->suites as $suite) {
             if ($name === $suite->getAttribute('name')) {
