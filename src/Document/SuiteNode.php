@@ -105,6 +105,23 @@ class SuiteNode extends Node
     }
 
     /**
+     * Returns a nested testcase if given name matches.
+     *
+     * @param   string  $name
+     * @return  CaseNode
+     */
+    public function getTestcaseByName($name)
+    {
+        foreach ($this->cases as $case) {
+            if ($name === $case->getAttribute('name')) {
+                return $case;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns all nested testsuites.
      *
      * @return  SuiteNode[]
