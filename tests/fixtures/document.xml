@@ -10,12 +10,12 @@
       </testcase>
     </testsuite>
   </testsuite>
-  <testsuite errors="1" failures="2" tests="2" time="3.777">
-    <testcase assertions="17" time="2.443" errors="1" failures="1">
+  <testsuite file="./tests/fixtures/document.php" errors="1" failures="2" tests="2" time="3.777">
+    <testcase file="./tests/fixtures/document.php" assertions="17" time="2.443" errors="1" failures="1">
       <error message="error message attribute" type="error">error message body</error>
       <failure message="failure message attribute" type="failure">failure message body</failure>
     </testcase>
-    <testcase assertions="13" time="1.334" failures="1">
+    <testcase file="./tests/fixtures/document.php" assertions="13" time="1.334" failures="1">
       <failure message="secondary failure attribute" type="failure">secondary failure body</failure>
     </testcase>
   </testsuite>

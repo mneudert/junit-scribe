@@ -66,6 +66,16 @@ abstract class Node
     }
 
     /**
+     * @param   string  $file
+     * @return  $this
+     */
+    public function setFile($file)
+    {
+        $this->attributes['file'] = $file;
+        return $this;
+    }
+
+    /**
      * @param   string  $name
      * @return  $this
      */
