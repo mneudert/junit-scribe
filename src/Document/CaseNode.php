@@ -100,6 +100,16 @@ class CaseNode extends Node
     }
 
     /**
+     * @param   int     $line
+     * @return  $this
+     */
+    public function setLine($line)
+    {
+        $this->attributes['line'] = (int) $line;
+        return $this;
+    }
+
+    /**
      * @param   float|int   $time
      * @return  $this
      */

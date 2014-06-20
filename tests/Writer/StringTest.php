@@ -55,6 +55,15 @@ class StringTest extends Testcase
         $this->assertNotFalse(strpos($writer->formatDocument(), 'file="./tests/fixtures/document.php"'));
     }
 
+    public function testAttributeLine()
+    {
+        $writer = new StringWriter();
+        $writer->setDocument($this->getFixtureDocument());
+
+        $this->assertNotFalse(strpos($writer->formatDocument(), 'line="29"'));
+        $this->assertNotFalse(strpos($writer->formatDocument(), 'line="43"'));
+    }
+
     public function testAttributeName()
     {
         $writer = new StringWriter();
