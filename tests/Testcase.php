@@ -8,6 +8,7 @@ class Testcase extends \PHPUnit_Framework_TestCase
     {
         return require __DIR__ . '/fixtures/document.php';
     }
+
     protected function getFixtureOutput()
     {
         return join('', file(__DIR__ . '/fixtures/document.xml'));
