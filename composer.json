@@ -1,5 +1,7 @@
 {
     "name": "mneudert/junit-scribe",
+    "description": "Utility to write JUnit XML Documents.",
+    "tags": ["hudson", "jenkins", "junit", "xml"],
     "homepage": "https://github.com/mneudert/junit-scribe",
     "type": "library",
     "license": "MIT",
