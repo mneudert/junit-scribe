@@ -3,10 +3,10 @@
 namespace JUnitScribeTest\Writer;
 
 use JUnitScribe\Document;
-use JUnitScribe\Writer\File as FileWriter;
+use JUnitScribe\Writer\FileWriter;
 use JUnitScribeTest\TestCase;
 
-class FileTest extends TestCase
+class FileWriterTest extends TestCase
 {
     public function testNeverSuccesfulWithoutDocument()
     {

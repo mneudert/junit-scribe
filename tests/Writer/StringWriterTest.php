@@ -3,10 +3,10 @@
 namespace JUnitScribeTest\Writer;
 
 use JUnitScribe\Document;
-use JUnitScribe\Writer\String as StringWriter;
+use JUnitScribe\Writer\StringWriter;
 use JUnitScribeTest\TestCase;
 
-class StringTest extends TestCase
+class StringWriterTest extends TestCase
 {
     public function testDocumentOutput()
     {

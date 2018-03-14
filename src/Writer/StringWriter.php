@@ -8,7 +8,7 @@ use JUnitScribe\Document\Node;
 use JUnitScribe\Document\ResultNode;
 use JUnitScribe\Document\SuiteNode;
 
-class String
+class StringWriter
 {
     const INDENTATION = '  ';
 
