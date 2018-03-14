@@ -2,7 +2,7 @@
 
 namespace JUnitScribe\Writer;
 
-class File extends String
+class FileWriter extends StringWriter
 {
     /** @var string */
     protected $outputFilename;

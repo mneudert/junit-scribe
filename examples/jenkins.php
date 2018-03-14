@@ -3,7 +3,7 @@
 require_once '../vendor/autoload.php';
 
 use JUnitScribe\Document;
-use JUnitScribe\Writer\String as StringWriter;
+use JUnitScribe\Writer\StringWriter;
 
 $document = new Document();
 $document
