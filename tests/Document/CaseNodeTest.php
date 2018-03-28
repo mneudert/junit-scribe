@@ -2,9 +2,9 @@
 
 namespace JUnitScribeTest\Document;
 
-use JUnitScribeTest\Testcase;
+use JUnitScribeTest\TestCase;
 
-class CaseNodeTest extends Testcase
+class CaseNodeTest extends TestCase
 {
     public function testGetSuiteByName()
     {

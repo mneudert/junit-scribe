@@ -4,7 +4,7 @@ namespace JUnitScribeTest\Writer;
 
 use JUnitScribe\Document;
 use JUnitScribe\Writer\File as FileWriter;
-use JUnitScribeTest\Testcase;
+use JUnitScribeTest\TestCase;
 
 class FileTest extends TestCase
 {

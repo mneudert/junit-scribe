@@ -4,7 +4,7 @@ namespace JUnitScribeTest;
 
 use JUnitScribe\Document;
 
-class DocumentTest extends Testcase
+class DocumentTest extends TestCase
 {
     public function testInstantiation()
     {

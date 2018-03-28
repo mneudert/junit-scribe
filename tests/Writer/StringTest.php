@@ -4,9 +4,9 @@ namespace JUnitScribeTest\Writer;
 
 use JUnitScribe\Document;
 use JUnitScribe\Writer\String as StringWriter;
-use JUnitScribeTest\Testcase;
+use JUnitScribeTest\TestCase;
 
-class StringTest extends Testcase
+class StringTest extends TestCase
 {
     public function testDocumentOutput()
     {
